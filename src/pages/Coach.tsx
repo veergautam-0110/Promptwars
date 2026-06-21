@@ -17,7 +17,7 @@ export function Coach() {
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: 'assistant', 
-      content: "Hello! I'm your Climora AI Coach. I've analyzed your recent activity. Would you like a personalized plan to reduce your footprint by 15% this month?",
+      content: "Protocol Established. I'm your Climora Eco Coach. I've analyzed your recent activity. Would you like a personalized plan to reduce your footprint by 15% this month?",
       options: ["🚲 Commute", "🥗 Diet", "💡 Energy", "♻️ Waste", "📱 Digital"]
     }
   ]);
@@ -79,19 +79,22 @@ export function Coach() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto h-[calc(100vh-8rem)] flex flex-col pb-24 md:pb-0">
+    <div className="max-w-4xl mx-auto h-[calc(100vh-8rem)] flex flex-col pb-24 md:pb-0 font-sans">
       <header className="flex flex-col gap-6 mb-10">
-        <Link to="/" className="flex items-center gap-1.5 text-[#8E8E93] font-bold text-xs uppercase tracking-[0.15em] hover:text-[#1D1D1F] transition-colors px-1">
-          <ArrowLeft size={14} /> Back to Home
+        <Link to="/" className="flex items-center gap-2 text-[#8E8E93] font-black text-[10px] mb-2 hover:text-[#E1FF01] transition-colors uppercase tracking-[0.2em] group">
+          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to Dashboard
         </Link>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-[#007AFF] rounded-[22px] flex items-center justify-center text-white shadow-xl shadow-blue-100">
-              <Sparkles size={28} />
+          <div className="flex items-center gap-6">
+            <div className="w-14 h-14 bg-[#E1FF01] rounded-[24px] flex items-center justify-center text-black shadow-xl shadow-[#E1FF01]/10">
+              <Sparkles size={28} strokeWidth={3} />
             </div>
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-[#1D1D1F]">AI Climate Coach</h1>
-              <p className="text-[#8E8E93] text-sm font-medium">Active • Personalized Guidance</p>
+              <div className="flex items-center gap-2 mb-1">
+                 <div className="w-4 h-1 bg-[#E1FF01] rounded-full" />
+                 <span className="text-[9px] font-black text-[#8E8E93] uppercase tracking-[0.4em]">Neural Link: Active</span>
+              </div>
+              <h1 className="text-4xl font-black tracking-tighter text-white uppercase italic">Eco <span className="text-[#E1FF01]">Coach</span></h1>
             </div>
           </div>
         </div>
@@ -108,21 +111,23 @@ export function Coach() {
             animate={{ opacity: 1, y: 0 }}
             className={cn(
               "flex gap-4 max-w-[85%]",
-              m.role === 'user' ? "ml-auto flex-row-reverse" : "mr-auto"
+              m.role === 'user' ? "ml-auto flex-row-reverse text-right" : "mr-auto"
             )}
           >
             <div className={cn(
-              "w-9 h-9 rounded-full flex items-center justify-center shrink-0 border border-[#E5E5E1] shadow-sm",
-              m.role === 'user' ? "bg-[#1D1D1F]" : "bg-white"
+              "w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 border transition-all",
+              m.role === 'user' 
+                ? "bg-[#E1FF01] border-[#E1FF01] text-black shadow-lg shadow-[#E1FF01]/10" 
+                : "bg-white/5 border-white/10 text-white"
             )}>
-              {m.role === 'user' ? <User size={18} className="text-white" /> : <Bot size={18} className="text-[#007AFF]" />}
+              {m.role === 'user' ? <User size={20} strokeWidth={3} /> : <Bot size={20} strokeWidth={3} />}
             </div>
             <div className="flex flex-col gap-4">
               <div className={cn(
-                "p-5 rounded-[24px] text-[15px] leading-relaxed",
+                "p-7 rounded-[32px] text-[15px] leading-relaxed",
                 m.role === 'user' 
-                  ? "bg-[#1D1D1F] text-white rounded-tr-none shadow-lg shadow-slate-200" 
-                  : "bg-white border border-[#E5E5E1] text-[#1D1D1F] shadow-sm rounded-tl-none font-medium"
+                  ? "bg-[#E1FF01] text-black rounded-tr-none font-black uppercase tracking-tight italic" 
+                  : "bg-[#0A0A0A] border border-white/10 text-white shadow-2xl rounded-tl-none font-bold italic"
               )}>
                 <div className="markdown-body">
                   <ReactMarkdown>{m.content}</ReactMarkdown>
@@ -130,40 +135,18 @@ export function Coach() {
               </div>
               
               {m.role === 'assistant' && m.options && m.options.length > 0 && i === messages.length - 1 && (
-                <div className="relative mt-2">
-                  <motion.button
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setShowOptions(!showOptions)}
-                    className="flex items-center gap-2 bg-[#F2F2F7] hover:bg-[#E5E5EA] text-[#1D1D1F] px-4 py-2 rounded-full text-xs font-bold transition-colors shadow-sm"
-                  >
-                    <span>🎯 Options</span>
-                    <motion.div animate={{ rotate: showOptions ? 180 : 0 }}>
-                      <Bot size={12} />
-                    </motion.div>
-                  </motion.button>
-
-                  {showOptions && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      className="absolute left-0 mt-3 w-[300px] bg-white border border-[#E5E5E1] rounded-[24px] shadow-2xl z-50 overflow-hidden"
+                <div className="flex flex-wrap gap-3 mt-2">
+                  {m.options.map((opt, idx) => (
+                    <motion.button
+                      key={idx}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleSend(undefined, opt)}
+                      className="bg-white/5 border border-white/10 text-white hover:bg-[#E1FF01] hover:text-black hover:border-[#E1FF01] px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all"
                     >
-                      <div className="p-2 flex flex-col">
-                        {m.options.map((opt, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => handleSend(undefined, opt)}
-                            className="w-full text-left p-4 hover:bg-[#F2F2F7] rounded-[18px] transition-colors flex items-center gap-4 active:scale-[0.98]"
-                          >
-                            <span className="text-2xl shrink-0 leading-none">{opt.split(' ')[0]}</span>
-                            <span className="text-base font-bold text-[#1D1D1F] leading-tight">
-                              {opt.split(' ').slice(1).join(' ')}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
+                      {opt}
+                    </motion.button>
+                  ))}
                 </div>
               )}
             </div>
@@ -171,27 +154,28 @@ export function Coach() {
         ))}
         {loading && (
           <div className="flex gap-4 max-w-[85%] animate-pulse">
-            <div className="w-9 h-9 rounded-full bg-[#F2F2F7] flex items-center justify-center border border-[#E5E5E1]">
-              <Bot size={18} className="text-[#8E8E93]" />
+            <div className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+              <Bot size={20} className="text-[#8E8E93]" />
             </div>
-            <div className="p-5 rounded-[24px] bg-white border border-[#E5E5E1] w-32 h-16"></div>
+            <div className="p-7 rounded-[32px] bg-[#0A0A0A] border border-white/10 w-48 h-20"></div>
           </div>
         )}
       </div>
 
-      <form onSubmit={handleSend} className="relative group">
+      <form onSubmit={handleSend} className="relative group mt-auto">
+        <div className="absolute inset-0 bg-[#E1FF01]/10 rounded-[32px] blur-2xl opacity-0 group-focus-within:opacity-100 transition-opacity" />
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask your coach anything..."
-          className="w-full bg-white border border-[#E5E5E1] pr-20 pl-7 py-6 rounded-[28px] shadow-2xl shadow-slate-200 outline-none focus:border-[#007AFF] transition-all text-lg font-medium placeholder:text-[#8E8E93]"
+          placeholder="ENTER COMMAND: Ask your coach anything..."
+          className="w-full bg-[#0A0A0A] border border-white/10 pr-24 pl-8 py-7 rounded-[32px] shadow-2xl outline-none focus:border-[#E1FF01] transition-all text-sm font-black uppercase tracking-widest text-white placeholder:text-[#8E8E93] placeholder:opacity-50 relative z-10 italic"
         />
         <button
           disabled={loading || !input.trim()}
-          className="absolute right-4 top-4 bottom-4 px-6 bg-[#007AFF] rounded-[20px] flex items-center justify-center text-white hover:bg-blue-600 disabled:bg-[#F2F2F7] disabled:text-[#8E8E93] disabled:cursor-not-allowed transition-all active:scale-95 shadow-lg shadow-blue-100"
+          className="absolute right-4 top-4 bottom-4 px-8 bg-[#E1FF01] rounded-[24px] flex items-center justify-center text-black hover:scale-105 disabled:opacity-50 disabled:scale-100 transition-all active:scale-95 shadow-xl shadow-[#E1FF01]/10 z-20 group"
         >
-          <Send size={20} />
+          <Send size={24} strokeWidth={3} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
         </button>
       </form>
     </div>

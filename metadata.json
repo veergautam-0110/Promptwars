@@ -1,6 +1,6 @@
 {
   "name": "Climora",
-  "description": "A world-class carbon footprint tracker and sustainability AI coach designed to help users understand and reduce their environmental impact.",
+  "description": "A world-class carbon footprint tracker and sustainability Eco coach designed to help users understand and reduce their environmental impact.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

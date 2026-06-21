@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { icon: Calculator, label: 'Calculator', path: '/calculator' },
   { icon: BookOpen, label: 'Academy', path: '/academy' },
   { icon: BarChart3, label: 'Community', path: '/community' },
-  { icon: MessageSquare, label: 'AI Coach', path: '/coach' },
+  { icon: MessageSquare, label: 'Eco Coach', path: '/coach' },
 ];
 
 export function Navbar() {
