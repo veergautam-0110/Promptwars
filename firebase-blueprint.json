@@ -1,0 +1,44 @@
+{
+  "collections": {
+    "users": {
+      "uid": "string",
+      "email": "string",
+      "displayName": "string",
+      "xp": "number",
+      "level": "number",
+      "streak": "number",
+      "totalSavedCO2": "number",
+      "createdAt": "timestamp"
+    },
+    "footprints": {
+      "userId": "string",
+      "category": "string",
+      "value": "number",
+      "co2": "number",
+      "unit": "string",
+      "date": "timestamp",
+      "source": "string"
+    },
+    "goals": {
+      "userId": "string",
+      "title": "string",
+      "targetValue": "number",
+      "currentValue": "number",
+      "category": "string",
+      "status": "string",
+      "deadline": "timestamp"
+    },
+    "achievements": {
+      "userId": "string",
+      "badgeId": "string",
+      "unlockedAt": "timestamp"
+    },
+    "insights": {
+      "userId": "string",
+      "content": "string",
+      "type": "string",
+      "createdAt": "timestamp"
+    }
+  },
+  "rules": "rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    function isSignedIn() {\n      return request.auth != null;\n    }\n    function isOwner(userId) {\n      return isSignedIn() && request.auth.uid == userId;\n    }\n    function isDocOwner() {\n      return isSignedIn() && resource.data.userId == request.auth.uid;\n    }\n    match /{document=**} {\n      allow read, write: if false;\n    }\n    match /users/{userId} {\n      allow read: if isSignedIn();\n      allow write: if isOwner(userId);\n    }\n    match /footprints/{footprintId} {\n      allow read: if isDocOwner();\n      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;\n      allow update, delete: if isDocOwner();\n    }\n    match /goals/{goalId} {\n      allow read: if isDocOwner();\n      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;\n      allow update, delete: if isDocOwner();\n    }\n    match /achievements/{id} {\n      allow read: if isDocOwner();\n      allow write: if isSignedIn() && request.resource.data.userId == request.auth.uid;\n    }\n    match /insights/{id} {\n      allow read: if isDocOwner();\n      allow write: if isSignedIn() && request.resource.data.userId == request.auth.uid;\n    }\n  }\n}"
+}

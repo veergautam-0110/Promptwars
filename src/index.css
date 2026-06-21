@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-success: #E1FF01;
+  --color-brand-warning: #FFD600;
+  --color-brand-error: #FF3B30;
+  --color-brand-info: #0A84FF;
+  --color-brand-purple: #BF5AF2;
+  
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0A0A0A;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #8E8E93;
+  --color-border-primary: #1C1C1E;
+  --color-surface-secondary: #1C1C1E;
+  
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-card: 32px;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-[family-name:--color-bg-primary] text-[family-name:--color-text-primary] antialiased overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-sans tracking-tight font-semibold;
+  }
+
+  /* Global Minimalist Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(142, 142, 147, 0.2);
+    border-radius: 20px;
+    border: 1px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(142, 142, 147, 0.4);
+  }
+
+  /* Hide scrollbar on body but allow scrolling */
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  /* Specific containers can still have the sleek scrollbar if needed */
+  .sleek-scroll {
+    overflow-y: auto;
+  }
+  .sleek-scroll::-webkit-scrollbar {
+    display: block;
+  }
+
+  .markdown-body {
+    @apply text-inherit;
+  }
+  .markdown-body p {
+    @apply mb-3 last:mb-0;
+  }
+  .markdown-body ul, .markdown-body ol {
+    @apply mb-3 ml-4 list-outside;
+  }
+  .markdown-body li {
+    @apply mb-1;
+  }
+  .markdown-body strong {
+    @apply font-bold;
+  }
+  .markdown-body em {
+    @apply italic;
+  }
+}
+
+.sleek-card {
+  @apply bg-white border border-[family-name:--color-border-primary] rounded-[family-name:--radius-card] shadow-sm;
+}
+
+.glass {
+  @apply bg-white/70 backdrop-blur-md border border-white/20;
+}
+
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-lg hover:shadow-slate-200/50 hover:-translate-y-0.5 active:scale-[0.99];
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full;
+}
